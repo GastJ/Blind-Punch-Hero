@@ -7,7 +7,7 @@ let sky = null;
 function preload() {
 
 	game.load.image("gameBg","assets/simple-background.jpg", w, h);
-    game.load.spritesheet("player", "assets/PlayerSprite1.png", 64, 65, 8);
+    game.load.spritesheet("player", "assets/Taya.png", 165, 140, 8);
 
 }
 
@@ -16,8 +16,9 @@ function create() {
 	game.physics.startSystem(Phaser.Physics.ARCADE); 
 	game.renderer.clearBeforeRender = false;
 	game.renderer.roundPixels = true;
+	game.world.setBounds(0, 0, w*3, h);
 	// fond
-    sky = game.add.tileSprite(0,0,w,h,'gameBg');
+    sky = game.add.tileSprite(0, 0, w, h, 'gameBg');
     sky.fixedToCamera = true;
     // Joueur
     player = createPlayer();
@@ -29,5 +30,5 @@ function update() {
 }
 
 function render() {
-	game.debug.body(player);
+	/*game.debug.body(player);*/
 }
