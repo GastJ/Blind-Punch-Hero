@@ -1,5 +1,5 @@
 function createPlayer(){
-	let player = game.add.sprite(640,298,"player");
+	let player = game.add.sprite(100, 300, "player");
 	game.physics.enable(player, Phaser.Physics.ARCADE);
     player.body.drag.set(100);
     player.body.maxVelocity.set(1000);
@@ -9,33 +9,15 @@ function createPlayer(){
     player.body.gravity.y = 0;
     player.anchor.set(0.5,0.5);
     game.camera.follow(player);
+    game.camera.deadzone = new Phaser.Rectangle(50, 250, 100, 100);
     player.scale.x= 0.5;
     player.scale.y= 0.5;
-   	let move = player.animations.add('move');
+   	/*let move = player.animations.add('move');*/
 
 	player.update = function(){
-        let right = game.input.keyboard.addKey(Phaser.Keyboard.RIGHT);
-        let left = game.input.keyboard.addKey(Phaser.Keyboard.LEFT);
-        let up = game.input.keyboard.addKey(Phaser.Keyboard.UP);
-        let down = game.input.keyboard.addKey(Phaser.Keyboard.DOWN);
-        if(right.isDown){
-            player.body.velocity.x = 500;
-            player.animations.play('move', 8, true);
-        }
-        if(left.isDown){
-            player.body.velocity.x = -500;
-            player.animations.play('move', 8, true);
-        }
-        if(up.isDown){
-            player.body.velocity.y = -200;
-            player.animations.play('move', 8, true);
-        }
-        if(down.isDown){
-            player.body.velocity.y = 200;
-            player.animations.play('move', 8, true);
-        }
-       	else {
-            player.animations.stop('move', 8);
+        if (player.y === 300){
+        	player.body.velocity.x = 400;
+        	/*game.add.tween(sprite).to( { x: '+300' }, 2000, Phaser.Easing.Linear.None, true);*/
         }
     };
 	return player;

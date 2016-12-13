@@ -16,7 +16,7 @@ function create() {
 	game.physics.startSystem(Phaser.Physics.ARCADE); 
 	game.renderer.clearBeforeRender = false;
 	game.renderer.roundPixels = true;
-	game.world.setBounds(0, 0, w*3, h);
+	game.world.setBounds(0, 0, w*7, h);
 	// fond
     sky = game.add.tileSprite(0, 0, w, h, 'gameBg');
     sky.fixedToCamera = true;
@@ -26,9 +26,15 @@ function create() {
 
 function update() {
 	// Camera fond
-    sky.tilePosition.x = -(game.camera.x * 0.7);
+    sky.tilePosition.x = -(game.camera.x * 1.4);
 }
 
 function render() {
 	/*game.debug.body(player);*/
+	let zone = game.camera.deadzone;
+	game.context.fillStyle = 'rgba(255,0,0,0.6)';
+    game.context.fillRect(zone.x, zone.y, zone.width, zone.height);
+
+    game.debug.cameraInfo(game.camera, 32, 32);
+    game.debug.spriteCoords(player, 32, 500);
 }
