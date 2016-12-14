@@ -1,4 +1,4 @@
-function createObstacle1(/*vitesse,*/ longueur, hauteur, positionX, positionY){
+function shortObstacle(longueur, hauteur, positionX, positionY){
 	obstacle1 = game.add.sprite(positionX, positionY, "obstacle1");
 	game.physics.enable(obstacle1, Phaser.Physics.ARCADE);
 	obstacle1.enableBody = true;
@@ -12,7 +12,7 @@ function createObstacle1(/*vitesse,*/ longueur, hauteur, positionX, positionY){
 	return obstacle1;
 }
 
-function createObstacle2(longueur, hauteur, positionX, positionY){
+function longObstacle(longueur, hauteur, positionX, positionY){
 	obstacle2 = game.add.sprite(positionX, positionY, "obstacle2");
 	game.physics.enable(obstacle2, Phaser.Physics.ARCADE);
 	obstacle2.enableBody = true;

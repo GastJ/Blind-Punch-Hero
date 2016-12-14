@@ -28,24 +28,35 @@ function create() {
     // Obstacle
     obstacleTab1 = [
     // En bas
-    createObstacle1(300, 100, 500, 560),
-    createObstacle1(300, 100, 980, 560),
-    createObstacle1(300, 100, 1460, 560),
+    shortObstacle(300, 100, w/2.5, h/1.11),
+    shortObstacle(300, 100, w/1.5, h/1.11),
+    shortObstacle(300, 100, w/1.1, h/1.11),
+    shortObstacle(300, 100, w*1.2, h/1.11),
+    shortObstacle(300, 100, w*1.45,h/1.11),
     // En haut
-    createObstacle1(300, 100, 500, 100).angle += 180,
-    createObstacle1(300, 100, 980, 100).angle += 180,
-    createObstacle1(300, 100, 1460, 100).angle += 180
+    shortObstacle(300, 100, w/2.5, h/9.5).angle += 180,
+    shortObstacle(300, 100, w/1.5, h/9.5).angle += 180,
+    shortObstacle(300, 100, w/1.1, h/9.5).angle += 180,
+    shortObstacle(300, 100, w*1.2, h/9.5).angle += 180,
+    shortObstacle(300, 100, w*1.45,h/9.5).angle += 180
     ]
     obstacleTab2 = [
     // En bas
-    createObstacle2(50, 500, 740, 285),
-    createObstacle2(50, 500, 1700, 285),
+    longObstacle(50, 500, w/1.89, h/2.2),
+    longObstacle(50, 500, w/0.95, h/2.2),
     // En haut
-    createObstacle2(50, 500, 1220, 350).angle += 180
+    longObstacle(50, 500, w/1.27, h/1.9).angle += 180
     ]
 }
 
+function collisionHandler(player, obstacleTab1, obstacleTab2, enemy){
+		player.kill();
+}
+
 function update() {
+	game.physics.arcade.collide(player, enemy, collisionHandler);
+	game.physics.arcade.collide(player, obstacleTab1, collisionHandler, null, this);
+	game.physics.arcade.collide(player, obstacleTab2, collisionHandler, null, this);
 	// Camera fond
     sky.tilePosition.x = -(game.camera.x * 1.0);
 }

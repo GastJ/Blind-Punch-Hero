@@ -3,7 +3,7 @@ function createEnemy(vitesse, positionX, positionY){
 	game.physics.enable(enemy, Phaser.Physics.ARCADE);
     enemy.body.drag.set(100);
     enemy.body.maxVelocity.set(1000);
-    enemy.body.setSize(155,125, 10, 10 );
+    enemy.body.setSize(200,125, 10, 10 );
     enemy.body.collideWorldBounds = true;
     enemy.body.bounce.y = 1.2;
     enemy.body.gravity.y = 0;

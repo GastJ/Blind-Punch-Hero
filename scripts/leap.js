@@ -7,7 +7,7 @@ Leap.loop(function(frame){
 	frame.hands.forEach(function(hand){
 		// Dessine la paume
 		let palmPos = to2D(hand.stabilizedPalmPosition, frame);
-		console.log(hand.type);
+		/*console.log(hand.type);*/
 
 		if(hand.type == "left"){
 			/*player.position.x = palmPos.x;*/
