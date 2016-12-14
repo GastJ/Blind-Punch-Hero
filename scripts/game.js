@@ -6,13 +6,12 @@ let sky = null;
 
 function preload() {
 
-	game.load.image("gameBg","assets/background.png", w, h);
+	game.load.image("gameBg","assets/background1.jpg", w, h);
     game.load.spritesheet("player", "assets/Taya.png", 165, 140);
     game.load.image("obstacle1", "assets/spike1.png", 100, 800);
     game.load.image("obstacle2", "assets/spike2.png", 100, 800);
-    game.load.spritesheet("enemy", "assets/bird.png", 85, 85, 11);
+    game.load.spritesheet("enemy", "assets/bullet.png", 280, 150, 2);
 }
-
 
 function create() {
 	game.physics.startSystem(Phaser.Physics.ARCADE); 
@@ -25,7 +24,7 @@ function create() {
     // Joueur
     player = createPlayer();
     // Ennemi
-    enemy = createEnemy(-550, 2562, 320);
+    enemy = createEnemy(-550, 2562, 310);
     // Obstacle
     obstacleTab1 = [
     // En bas

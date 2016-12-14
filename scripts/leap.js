@@ -10,7 +10,7 @@ Leap.loop(function(frame){
 		console.log(hand.type);
 
 		if(hand.type == "left"){
-			player.position.x = palmPos.x;
+			/*player.position.x = palmPos.x;*/
 			player.position.y = palmPos.y;
 		}
 

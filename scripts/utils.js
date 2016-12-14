@@ -7,8 +7,6 @@ function to2D(leapPoint, frame){
 		y : (1 - normalizedPoint[1]) * h
 
 	};
-	/*console.log(ctx);
-	console.log(game.context);*/
 }
 
 function drawCirle(x, y, size, color = 'black'){

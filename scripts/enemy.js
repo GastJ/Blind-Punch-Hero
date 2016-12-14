@@ -8,14 +8,14 @@ function createEnemy(vitesse, positionX, positionY){
     enemy.body.bounce.y = 1.2;
     enemy.body.gravity.y = 0;
     enemy.anchor.set(0.5,0.5);
-    /*enemy.scale.x= 0.5;
-    enemy.scale.y= 0.5;*/
+    enemy.scale.x = -0.5;
+    enemy.scale.y= 0.5;
     let move = enemy.animations.add('move');
     
     enemy.update = function(){
-    	if(enemy.y === 320){
+    	if(enemy.y === 310){
     		enemy.body.velocity.x = vitesse;
-    		enemy.animations.play('move', 13, true);
+    		enemy.animations.play('move', 2, true);
     	}
     }
 

@@ -2,7 +2,7 @@ function createPlayer(){
 	let player = game.add.sprite(150, 300, "player");
 	game.physics.enable(player, Phaser.Physics.ARCADE);
     player.body.drag.set(100);
-    player.body.maxVelocity.set(1000);
+    player.body.maxVelocity.set(300);
     player.body.setSize(155,125, 10, 10 );
     player.body.collideWorldBounds = true;
     player.body.gravity.y = 0;
@@ -14,10 +14,9 @@ function createPlayer(){
    	/*let move = player.animations.add('move');*/
 
 	player.update = function(){
-        if (player.y === 300){
         	/*player.body.velocity.x = 300;*/
         	/*game.add.tween(sprite).to( { x: '+300' }, 2000, Phaser.Easing.Linear.None, true);*/
-        }
+        
     };
 	return player;
 }
