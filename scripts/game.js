@@ -3,7 +3,6 @@ let h = window.innerHeight;
 let game = new Phaser.Game(w, h, Phaser.CANVAS, 'game', { preload: preload, create: create, update: update, render: render});
 let player = 0;
 let sky = null;
-let timerObstacle1 = 0;
 
 function preload() {
 
@@ -28,7 +27,7 @@ function create() {
     // Cible
     target = createTarget();
     // Ennemi
-    enemy = createEnemy(-300, 600, 300);
+    enemy = createEnemy(-400, 1000, 300);
     /*for (var i = 0; i < 4; i++) {
     	setInterval(createEnemy(-400, game.rnd.integerInRange(1200, 2000), game.rnd.integerInRange(100, 700)), 2000);
     }*/
@@ -64,9 +63,9 @@ function create() {
 
 function collisionHandler(player, obstacleTab1, obstacleTab2, enemy){
 		player.kill();
-		/*if(enemy.x == 0){
+		if(enemy.y == 0){
 			enemy.kill()
-		}*/
+		}
 }
 
 function update() {
