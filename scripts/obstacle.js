@@ -14,7 +14,7 @@ function shortObstacle(vitesse, longueur, hauteur, positionX, positionY, angle, 
 	return obstacle1;
 }
 
-function longObstacle(vitesse, longueur, hauteur, positionX, positionY){
+function longObstacle(vitesse, longueur, hauteur, positionX, positionY, angle, widthbody, heightbody, offsetY){
 	obstacle2 = game.add.sprite(positionX, positionY, "obstacle2");
 	game.physics.enable(obstacle2, Phaser.Physics.ARCADE);
 	obstacle2.enableBody = true;
@@ -24,6 +24,8 @@ function longObstacle(vitesse, longueur, hauteur, positionX, positionY){
 	obstacle2.width = longueur;
 	obstacle2.height = hauteur;
 	obstacle2.anchor.set(0.5,0);
-
+	obstacle2.angle += angle;
+	obstacle2.body.setSize(widthbody, heightbody, 0, offsetY);
+	
 	return obstacle2;
 }

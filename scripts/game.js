@@ -1,7 +1,7 @@
 let w = window.innerWidth;
 let h = window.innerHeight;
 let game = new Phaser.Game(w, h, Phaser.CANVAS, 'game', { preload: preload, create: create, update: update, render: render});
-let player = 0;
+let player;
 let sky = null;
 
 function preload() {
@@ -28,7 +28,7 @@ function create() {
     target = createTarget();
     // Ennemi
     enemy = createEnemy(-400, 800, 300);
-    /*enemy =	setTimeout(createEnemy(-400, game.rnd.integerInRange(1200, 2000), game.rnd.integerInRange(100, 700)), 2000);*/
+    /*enemy =	setInterval(createEnemy(-400, game.rnd.integerInRange(1200, 2000), game.rnd.integerInRange(100, 700)), 2000);*/
     // Obstacle
     obstacleTab1 = [
     // En bas
@@ -47,30 +47,37 @@ function create() {
 
     obstacleTab2 = [
     // En bas
-    longObstacle(-300, 50, 500, w/1.27, h/1.9),
-    longObstacle(-300, 50, 500, w/0.755, h/1.9),
+    longObstacle(-300, 50, 500, w/1.27, h/1.9, 0, 50, 500, 0),
+    longObstacle(-300, 50, 500, w/0.755, h/1.9, 0, 50, 500, 0),
     // En haut
-    longObstacle(-300, 50, 500, w/0.95, h/1.9).angle += 180
+    longObstacle(-300, 50, 500, w/0.95, h/1.9, 180, 50, 500, -500)
     ]
 }
 
 function collisionPlayer(player, obstacleTab1, obstacleTab2, enemy){
+		/*game.add.tween(player).to( { alpha: 0 }, 100, Phaser.Easing.Linear.None, true, 0);*/
 		player.kill();
 }
 function collisionEnemyTarget(enemy, target){
+		/*game.add.tween(enemy).to( { alpha: 0 }, 100, Phaser.Easing.Linear.None, true, 0);*/
 		enemy.kill();
 }
-function collisionObstacleTarget(obstacleTab1, target){
+function collisionObstacle1Target(obstacleTab1, target){
 		obstacleTab1.kill();
 }
+function collisionObstacle2Target(obstacleTab2, target){
+		obstacleTab2.kill();
+}
 function update() {
+	// Camera fond
+	sky.tilePosition.x -= 4;
+	// Collisions
 	game.physics.arcade.collide(player, enemy, collisionPlayer, null, this);
 	game.physics.arcade.collide(player, obstacleTab1, collisionPlayer, null, this);
 	game.physics.arcade.collide(player, obstacleTab2, collisionPlayer, null, this);
 	game.physics.arcade.collide(enemy, target, collisionEnemyTarget, null, this);
-	/*game.physics.arcade.collide(target, obstacleTab1, collisionObstacleTarget, null, this);*/
-	// Camera fond
-	sky.tilePosition.x -= 4;
+	game.physics.arcade.collide(obstacleTab1, target, collisionObstacle1Target, null, this);
+	game.physics.arcade.collide(obstacleTab2, target, collisionObstacle2Target, null, this);
 }
 
 function render() {
