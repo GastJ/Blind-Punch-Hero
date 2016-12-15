@@ -3,7 +3,7 @@ function to2D(leapPoint, frame){
 	let normalizedPoint = iBox.normalizePoint(leapPoint, true);
 
 	return{
-		x : normalizedPoint[0] * w * 7,
+		x : normalizedPoint[0] * w,
 		y : (1 - normalizedPoint[1]) * h
 
 	};

@@ -15,7 +15,8 @@ Leap.loop(function(frame){
 		}
 
 		if(hand.type == "right"){
-
+			target.position.x = palmPos.x;
+			target.position.y = palmPos.y;
 		}
 	});
 }) // Fin de la Leap Loop

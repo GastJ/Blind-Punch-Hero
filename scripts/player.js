@@ -14,7 +14,7 @@ function createPlayer(){
    	/*let move = player.animations.add('move');*/
 
 	player.update = function(){
-        	player.body.velocity.x = 300;
+        	/*player.body.velocity.x = 300;*/
         	/*game.add.tween(sprite).to( { x: '+300' }, 2000, Phaser.Easing.Linear.None, true);*/
         
     };

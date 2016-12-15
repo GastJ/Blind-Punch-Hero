@@ -11,12 +11,10 @@ function createEnemy(vitesse, positionX, positionY){
     enemy.scale.x = -0.5;
     enemy.scale.y= 0.5;
     let move = enemy.animations.add('move');
+    enemy.animations.play('move', 2, true);
     
     enemy.update = function(){
-    	if(enemy.y === 310){
-    		enemy.body.velocity.x = vitesse;
-    		enemy.animations.play('move', 2, true);
-    	}
+    	enemy.body.velocity.x = vitesse;
     }
 
 	return enemy;
