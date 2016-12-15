@@ -27,31 +27,24 @@ function create() {
     // Cible
     target = createTarget();
     // Ennemi
-    enemy = createEnemy(-400, 1000, 300);
-    /*for (var i = 0; i < 4; i++) {
-    	setInterval(createEnemy(-400, game.rnd.integerInRange(1200, 2000), game.rnd.integerInRange(100, 700)), 2000);
-    }*/
+    enemy = createEnemy(-400, 800, 300);
+    /*enemy =	setTimeout(createEnemy(-400, game.rnd.integerInRange(1200, 2000), game.rnd.integerInRange(100, 700)), 2000);*/
     // Obstacle
     obstacleTab1 = [
     // En bas
-    shortObstacle(-300, 300, 100, w/2.5, h/1.11),
-    shortObstacle(-300, 300, 100, w/1.5, h/1.11),
-    shortObstacle(-300, 300, 100, w/1.1, h/1.11),
-    shortObstacle(-300, 300, 100, w*1.2, h/1.11),
-    shortObstacle(-300, 300, 100, w*1.45,h/1.11),
+    shortObstacle(-300, 300, 100, w/2.5, h/1.11, 0, 300, 100),
+    shortObstacle(-300, 300, 100, w/1.5, h/1.11, 0, 300, 100),
+    shortObstacle(-300, 300, 100, w/1.1, h/1.11, 0, 300, 100),
+    shortObstacle(-300, 300, 100, w*1.2, h/1.11, 0, 300, 100),
+    shortObstacle(-300, 300, 100, w*1.45,h/1.11, 0, 300, 100),
     // En haut
-    shortObstacle(-300, 300, 100, w/2.5, h/9.5).angle += 180,
-    shortObstacle(-300, 300, 100, w/1.5, h/9.5).angle += 180,
-    shortObstacle(-300, 300, 100, w/1.1, h/9.5).angle += 180,
-    shortObstacle(-300, 300, 100, w*1.2, h/9.5).angle += 180,
-    shortObstacle(-300, 300, 100, w*1.45,h/9.5).angle += 180
+    shortObstacle(-300, 300, 100, w/2.5, h/9.5, 180, 300, 5),
+    shortObstacle(-300, 300, 100, w/1.5, h/9.5, 180, 300, 5),
+    shortObstacle(-300, 300, 100, w/1.1, h/9.5, 180, 300, 5),
+    shortObstacle(-300, 300, 100, w*1.2, h/9.5, 180, 300, 5),
+    shortObstacle(-300, 300, 100, w*1.45,h/9.5, 180, 300, 5)
     ]
-    obstacleTab1 = game.add.group();
-    obstacleTab1.enableBody = true;
 
-    for (var i = 0; i < obstacleTab1.length; i++) {
-    	var obstacleTab1Group = obstacleTab1.create(300,100,"obstacle1");
-    }
     obstacleTab2 = [
     // En bas
     longObstacle(-300, 50, 500, w/1.27, h/1.9),
@@ -61,18 +54,21 @@ function create() {
     ]
 }
 
-function collisionHandler(player, obstacleTab1, obstacleTab2, enemy){
+function collisionPlayer(player, obstacleTab1, obstacleTab2, enemy){
 		player.kill();
-		if(enemy.y == 0){
-			enemy.kill()
-		}
 }
-
+function collisionEnemyTarget(enemy, target){
+		enemy.kill();
+}
+function collisionObstacleTarget(obstacleTab1, target){
+		obstacleTab1.kill();
+}
 function update() {
-	/*game.physics.arcade.collide(player, enemy, collisionHandler, null, this);
-	game.physics.arcade.collide(player, obstacleTab1, collisionHandler, null, this);
-	game.physics.arcade.collide(player, obstacleTab2, collisionHandler, null, this);*/
-	/*game.physics.arcade.collide(enemy, collisionHandler, null, this);*/
+	game.physics.arcade.collide(player, enemy, collisionPlayer, null, this);
+	game.physics.arcade.collide(player, obstacleTab1, collisionPlayer, null, this);
+	game.physics.arcade.collide(player, obstacleTab2, collisionPlayer, null, this);
+	game.physics.arcade.collide(enemy, target, collisionEnemyTarget, null, this);
+	/*game.physics.arcade.collide(target, obstacleTab1, collisionObstacleTarget, null, this);*/
 	// Camera fond
 	sky.tilePosition.x -= 4;
 }
@@ -82,7 +78,6 @@ function render() {
 	/*let zone = game.camera.deadzone;
 	game.context.fillStyle = 'rgba(255,0,0,0.6)';
     game.context.fillRect(zone.x, zone.y, zone.width, zone.height);*/
-
     game.debug.cameraInfo(game.camera, 32, 32);
     game.debug.spriteCoords(player, 32, 500);
 }

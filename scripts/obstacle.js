@@ -1,4 +1,4 @@
-function shortObstacle(vitesse, longueur, hauteur, positionX, positionY){
+function shortObstacle(vitesse, longueur, hauteur, positionX, positionY, angle, widthbody, heightbody){
 	obstacle1 = game.add.sprite(positionX, positionY, "obstacle1");
 	game.physics.enable(obstacle1, Phaser.Physics.ARCADE);
 	obstacle1.enableBody = true;
@@ -8,6 +8,8 @@ function shortObstacle(vitesse, longueur, hauteur, positionX, positionY){
 	obstacle1.width = longueur;
 	obstacle1.height = hauteur;
 	obstacle1.anchor.set(0.5,0);
+	obstacle1.angle += angle;
+	obstacle1.body.setSize(widthbody, heightbody);
 
 	return obstacle1;
 }
