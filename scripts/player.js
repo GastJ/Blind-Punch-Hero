@@ -12,7 +12,7 @@ function createPlayer(){
     player.scale.x= 0.5;
     player.scale.y= 0.5;
     tween = game.add.tween(player);
-    tween.to({y: [h/15, h/1.1, 300] }, 10000, "Linear");
+    tween.to({y: [h/15, h/1.1, 300] }, 5000, "Linear");
     tween.start();
    	/*let move = player.animations.add('move');*/
 
