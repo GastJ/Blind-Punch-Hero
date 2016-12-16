@@ -12,12 +12,11 @@ function createPlayer(){
     player.scale.x= 0.5;
     player.scale.y= 0.5;
     tween = game.add.tween(player);
-    tween.to({y: [h/15, h/1.1, 300] }, 5000, "Linear");
-    tween.start();
-   	/*let move = player.animations.add('move');*/
-
-	player.update = function(){ 
-        	tween.start();   
-    };
+    tween.to({y: [h/15, h/1.1, 300] }, 5000, "Linear").loop(true);
+   	let move = player.animations.add('move');
+    player.animations.play('move', 4, true);
+    player.animations.currentAnim.speed = 7; 
+    tween.start(); 
+	
 	return player;
 }
