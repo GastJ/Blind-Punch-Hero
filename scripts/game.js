@@ -3,6 +3,8 @@ let h = window.innerHeight;
 let game = new Phaser.Game(w, h, Phaser.CANVAS, 'game', { preload: preload, create: create, update: update, render: render});
 let player;
 let sky = null;
+let timerEnemies = 0;
+let generateEnemies = 50;
 
 function preload() {
 
@@ -33,8 +35,19 @@ function create() {
     player = createPlayer();
     // Cible
     target = createTarget();
-    // Ennemi
-    enemy = createEnemy(-400, 800, 300);
+    // Ennemis
+    timer = 0;
+    cycle = 1000;
+    enemies = game.add.group();
+    enemies.enableBody = true;
+    for(let j = 0; j < generateEnemies; j++){
+    	coordonneesEnemies = Math.floor(Math.random()*3);
+    	enemy = enemies.create( w+1200, h+1200, 'enemy');
+    	enemy.exists = false;
+    	enemy.body.setSize(200, 125, 10, 10);
+    	enemy.checkWorldBounds = true;
+    	enemy.outOfBoundsKill = true;
+     }
     // Bouton Retry
     gameRetry = game.add.sprite(-1600, game.camera.y+400, "retry");
     gameRetry.anchor.set(0.5,0.5);
@@ -87,24 +100,38 @@ function collisionPlayer(player, obstacleTab1, obstacleTab2, enemy){
     	gameMenu.visible = true;
 }
 function collisionEnemyTarget(enemy, target){
-		game.add.tween(enemy).to( { alpha: 0 }, 250, Phaser.Easing.Linear.None, true, 0).onComplete.add(function(){enemy.kill();bulletdeath.play();});		
+		game.add.tween(target).to( {alpha:0}, 250, Phaser.Easing.Linear.None, true, 0);
+		game.add.tween(target.scale).to( {x:-0.8, y:0.8  }, 250, Phaser.Easing.Linear.None, true, 0).onComplete.add(function(){target.kill();bulletdeath.play();});
 }
 function collisionObstacle1Target(obstacleTab1, target){
-		game.add.tween(obstacleTab1.scale).to( { x:2, y:2, alpha: 0 }, 400, Phaser.Easing.Linear.None, true, 0).onComplete.add(function(){obstacleTab1.kill();woodcrack.play();});
+		game.add.tween(obstacleTab1).to( {alpha:0}, 250, Phaser.Easing.Linear.None, true, 0);
+		game.add.tween(obstacleTab1.scale).to( { x:2, y:2}, 400, Phaser.Easing.Linear.None, true, 0).onComplete.add(function(){obstacleTab1.kill();woodcrack.play();});
 }
 function collisionObstacle2Target(obstacleTab2, target){
-		game.add.tween(obstacleTab2.scale).to( { x:1.5, y:1.5, alpha: 0 }, 300, Phaser.Easing.Linear.None, true, 0).onComplete.add(function(){obstacleTab2.kill(); woodcrack.play();});
+		game.add.tween(obstacleTab2).to( {alpha:0}, 250, Phaser.Easing.Linear.None, true, 0);
+		game.add.tween(obstacleTab2.scale).to( { x:1.5, y:1.5}, 300, Phaser.Easing.Linear.None, true, 0).onComplete.add(function(){obstacleTab2.kill(); woodcrack.play();});
 }
 function update() {
 	// Camera fond
 	sky.tilePosition.x -= 4;
 	// Collisions
-	/*	game.physics.arcade.collide(player, enemy, collisionPlayer, null, this);
+	game.physics.arcade.collide(player, enemies, collisionPlayer, null, this);
 	game.physics.arcade.collide(player, obstacleTab1, collisionPlayer, null, this);
 	game.physics.arcade.collide(player, obstacleTab2, collisionPlayer, null, this);
-	game.physics.arcade.collide(enemy, target, collisionEnemyTarget, null, this);
+	game.physics.arcade.collide(enemies, target, collisionEnemyTarget);
 	game.physics.arcade.collide(obstacleTab1, target, collisionObstacle1Target, null, this);
-	game.physics.arcade.collide(obstacleTab2, target, collisionObstacle2Target, null, this);*/	
+	game.physics.arcade.collide(obstacleTab2, target, collisionObstacle2Target, null, this);
+	// Enemies
+	enemy = enemies.getFirstExists(false);
+	if(game.time.now > timer ){
+		timer = game.time.now + cycle;
+	}
+	rndX = game.rnd.integerInRange(w, w+3000);
+	rndY = game.rnd.integerInRange(0, h);
+	enemy.reset(rndX, rndY);
+	enemy.scale.x =- 0.5;
+	enemy.scale.y = 0.5;
+	enemy.body.velocity.x = -400;
 }
 
 function render() {
@@ -112,16 +139,12 @@ function render() {
 	/*let zone = game.camera.deadzone;
 	game.context.fillStyle = 'rgba(255,0,0,0.6)';
     game.context.fillRect(zone.x, zone.y, zone.width, zone.height);*/
-    game.debug.cameraInfo(game.camera, 32, 32);
-    game.debug.spriteCoords(player, 32, 500);
+    /*game.debug.cameraInfo(game.camera, 32, 32);
+    game.debug.spriteCoords(player, 32, 500);*/
 }
 
 function restart () {
 	game.state.start(game.state.current);
-    // Cache le game over, le game win et l'animation de fin
-    gameOver.visible = false;
-    youWin.visible = false;
-    gameWin.visible = false; 
 }
 
 function callMenu(){
